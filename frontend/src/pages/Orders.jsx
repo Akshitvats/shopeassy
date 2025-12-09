@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { getApiUrl } from '../config/api';
 import './Orders.css';
 
 function Orders() {
@@ -21,7 +22,7 @@ function Orders() {
 
   const fetchOrders = async () => {
     try {
-      const response = await fetch('/api/orders/my', {
+      const response = await fetch(getApiUrl('/api/orders/my'), {
         headers: {
           'Authorization': `Bearer ${token}`
         }

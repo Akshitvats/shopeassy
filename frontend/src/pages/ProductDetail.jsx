@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 import { ShoppingCart, ArrowLeft } from 'lucide-react';
+import { getApiUrl } from '../config/api';
 import './ProductDetail.css';
 
 function ProductDetail() {
@@ -23,7 +24,7 @@ function ProductDetail() {
 
   const fetchProduct = async () => {
     try {
-      const response = await fetch(`/api/products/${id}`);
+      const response = await fetch(getApiUrl(`/api/products/${id}`));
       if (response.ok) {
         const data = await response.json();
         setProduct(data);

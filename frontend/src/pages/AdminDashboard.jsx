@@ -1,6 +1,7 @@
 import { useEffect, useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { getApiUrl } from '../config/api';
 import './AdminDashboard.css';
 
 const statusOptions = ['pending', 'processing', 'shipped', 'delivered', 'cancelled'];
@@ -50,7 +51,7 @@ function AdminDashboard() {
       const url = orderSearch 
         ? `/api/orders?search=${encodeURIComponent(orderSearch)}`
         : '/api/orders';
-      const res = await fetch(url, {
+      const res = await fetch(getApiUrl(url), {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -74,7 +75,7 @@ function AdminDashboard() {
       const url = productSearch
         ? `/api/products?search=${encodeURIComponent(productSearch)}`
         : '/api/products';
-      const res = await fetch(url);
+      const res = await fetch(getApiUrl(url));
       if (!res.ok) {
         setProductsError('Failed to load products');
         return;
@@ -89,7 +90,7 @@ function AdminDashboard() {
 
   const handleStatusChange = async (orderId, status) => {
     try {
-      const res = await fetch(`/api/orders/${orderId}/status`, {
+      const res = await fetch(getApiUrl(`/api/orders/${orderId}/status`), {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -152,7 +153,7 @@ function AdminDashboard() {
     const method = isEdit ? 'PUT' : 'POST';
 
     try {
-      const res = await fetch(url, {
+      const res = await fetch(getApiUrl(url), {
         method,
         headers: {
           'Content-Type': 'application/json',
@@ -178,7 +179,7 @@ function AdminDashboard() {
   const handleDeleteProduct = async (id) => {
     if (!window.confirm('Delete this product?')) return;
     try {
-      const res = await fetch(`/api/products/${id}`, {
+      const res = await fetch(getApiUrl(`/api/products/${id}`), {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`

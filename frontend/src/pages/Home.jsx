@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Search, ChevronLeft, ChevronRight } from 'lucide-react';
 import ProductCard from '../components/ProductCard';
+import { getApiUrl } from '../config/api';
 import './Home.css';
 
 function Home() {
@@ -35,7 +36,7 @@ function Home() {
         params.append('sortBy', sortBy);
       }
 
-      const response = await fetch(`/api/products?${params}`);
+      const response = await fetch(getApiUrl(`/api/products?${params}`));
       const data = await response.json();
       setProducts(data.products);
       setTotalPages(data.totalPages);

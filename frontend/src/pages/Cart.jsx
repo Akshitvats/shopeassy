@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 import { Trash2, Plus, Minus } from 'lucide-react';
+import { getApiUrl } from '../config/api';
 import './Cart.css';
 
 function Cart() {
@@ -22,7 +23,7 @@ function Cart() {
     }));
 
     try {
-      const response = await fetch('/api/orders', {
+      const response = await fetch(getApiUrl('/api/orders'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

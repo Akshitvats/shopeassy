@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { Edit2 } from 'lucide-react';
+import { getApiUrl } from '../config/api';
 import './Profile.css';
 
 function Profile() {
@@ -38,7 +39,7 @@ function Profile() {
     try {
       const updateData = { name, email };
 
-      const response = await fetch('/api/users/me', {
+      const response = await fetch(getApiUrl('/api/users/me'), {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -80,7 +81,7 @@ function Profile() {
     setPasswordLoading(true);
 
     try {
-      const response = await fetch('/api/users/me', {
+      const response = await fetch(getApiUrl('/api/users/me'), {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
